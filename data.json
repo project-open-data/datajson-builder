@@ -1,0 +1,46 @@
+---
+layout: default
+
+context: "https://project-open-data.cio.gov/v1.1/schema/catalog.jsonld"
+type: "dcat:Catalog"
+conformsTo: "https://project-open-data.cio.gov/v1.1/schema"
+describedBy: "https://project-open-data.cio.gov/v1.1/schema/catalog.json"
+---
+{
+    "@context":"{{ page.context }}",
+    "@type":"{{ page.type }}",
+    "conformsTo":"{{ page.conformsTo }}",
+    "describedBy": "{{ page.describedBy }}",
+    "dataset": [{% for d in site.categories.datasets %}
+    {
+        "@type":"dcat:Dataset",
+        "accessLevel": "public",
+        "identifier": "{{ d.identifier }}",
+        "title": "{{ d.title }}",
+        "modified": "{{ d.modified }}",
+        "rights": "-",
+        "bureauCode": [{% for code in d.bureauCode %}"{{ code }}"{% unless forloop.last %},{% endunless %}{% endfor %}],
+        "programCode": [{% for code in d.programCode %}"{{ code }}"{% unless forloop.last %},{% endunless %}{% endfor %}],{% if d.describedBy %}{% if d.describedBy != "" %}
+        "describedBy": "{{ d.describedBy }}",{% endif %}{% endif %}
+        "description": "{{ d.description | escape }}",
+        "distribution":[{% for endpoint in d.distribution %}{
+            {% if endpoint.format %}"format":"{{ endpoint.format }}",{% endif %}
+            {% if endpoint.mediaType %}"mediaType":"{{ endpoint.mediaType }}",{% endif %}
+            {% if endpoint.accessURL %}"accessURL":"{{ endpoint.accessURL }}",{% endif %}
+            {% if endpoint.downloadURL %}"downloadURL":"{{ endpoint.downloadURL }}",{% endif %}
+            "type":"{{ endpoint.type }}"
+        }{% unless forloop.last %},{% endunless %}{% endfor %}],
+        "keyword": [{% for kw in d.keyword %}"{{ kw }}"{% unless forloop.last %},{% endunless %}{% endfor %}],
+        "publisher": {
+            "@type":"{{ d.publisher.type }}",
+            "name": "{{ d.publisher.name }}"
+        },
+        "spatial": "{{ d.spatial }}",
+        "temporal": "{{ d.temporal }}",
+        "contactPoint": {
+            "@type":"{{ d.poc.type }}",
+            "fn": "{{ d.poc.fn }}",
+            "hasEmail": "{{ d.poc.hasEmail }}"
+        }
+    }{% unless forloop.last %},{% endunless %}{% endfor %}]
+}

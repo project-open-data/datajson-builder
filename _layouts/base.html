@@ -1,0 +1,83 @@
+---
+layout: default
+
+dns_prefetch: ['//www.google-analytics.com','//mapbox.com','//api.mapbox.com','//project-open-data.cio.gov']
+
+---
+{% capture v %}{{ site.time | date: '%Y-%m-%dT%H:%M' }}{% endcapture %}
+<html class="svg">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="google" content="notranslate" />
+    <meta http-equiv="Content-Language" content="en_US" />
+    {% if site.twittercard.enabled == true %}
+      {% if page.categories contains "datasets" %}
+        {% include twittercard_default.html %}
+      {% else %}
+        {% include twittercard_default.html %}
+      {% endif %}
+    {% endif %}
+    {% if site.opengraph.enabled == true %}
+      {% if page.categories contains "datasets" %}
+        {% include opengraph_default.html %}
+      {% else %}
+        {% include opengraph_default.html %}
+      {% endif %}
+    {% endif %}
+    {% for dns in page.dns_prefetch %}
+    <link rel="dns-prefetch" href="{{ dns }}">
+    {% endfor %}
+    <title>{{ page.title }}</title>
+    <link rel="shortcut icon" type="image/ico" href="{{ site.baseurl }}/favicon.ico" />
+    <!-- CSS / External-->
+    <link href="{{ site.baseurl }}/lib/bootstrap/3.3.5/bootstrap.min.css" rel="stylesheet"/>
+    <link href="{{ site.baseurl }}/lib/bootstrap/3.3.5/bootstrap-theme.min.css" rel="stylesheet"/>
+    <!-- CSS / Internal -->
+    <link href='{{site.baseurl}}/site.css' rel='stylesheet' />
+    <!-- JavaScript / Polyfill -->	
+    {% if site.debug.polyfill == true %}
+    <script src="{{ site.baseurl }}/build/js/polyfill.js?v={{ v }}"></script>
+    {% else %}
+    <script src="{{ site.baseurl }}/build/js/polyfill.min.js?v={{ v }}"></script>
+    {% endif %}
+    <!-- JavaScript / External -->	
+    <!--<script src="{{ site.baseurl }}/lib/jquery/1.7.2/jquery-1.7.2.js"></script>-->
+    {% if site.debug.jquery == true %}
+    <script src="{{ site.baseurl }}/lib/jquery/{{ site.deps.jquery.version }}/jquery-{{ site.deps.jquery.version }}.js"></script>
+    <script src="{{ site.baseurl }}/lib/jqueryui/jquery-ui-1.8.14.js"></script>
+    {% else %}
+    <script src="{{ site.baseurl }}/lib/jquery/{{ site.deps.jquery.version }}/jquery-{{ site.deps.jquery.version }}.min.js"></script>
+    <script src="{{ site.baseurl }}/lib/jqueryui/jquery-ui-1.8.14.min.js"></script>
+    {% endif %}
+    {% if site.debug.angular == true %}
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/{{ site.deps.angular.version }}/angular.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/{{ site.deps.angular.version }}/angular-route.js"></script>
+    {% else %}
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/{{ site.deps.angular.version }}/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/{{ site.deps.angular.version }}/angular-route.min.js"></script>
+    {% endif %}
+    {% if site.debug.bootstrap == true %}
+    <script src="{{ site.baseurl }}/lib/bootstrap/3.3.5/bootstrap.js"></script>
+    {% else %}
+    <script src="{{ site.baseurl }}/lib/bootstrap/3.3.5/bootstrap.min.js"></script>
+    {% endif %}
+    <!-- JavaScript / Internal -->		
+    {% if site.debug.main == true %}
+    <!--<script src="{{ site.baseurl }}/build/js/main.js?v={{ v }}"></script>-->
+    {% else %}
+    <!--<script src="{{ site.baseurl }}/build/js/main.min.js?v={{ v }}"></script>-->
+    {% endif %}
+    {% include const_snippet.html %}
+    <!--Digital Analytics Program roll-up, see https://analytics.usa.gov for data-->
+    {% if site.dap.enabled == true %}
+      {% include analytics_dap_snippet.html %}
+    {% endif %}
+    <!-- Google Analytics -->
+    {% if site.ga.enabled == true %}
+      {% include analytics_ga_snippet.html %}
+    {% endif %}
+  </head>
+  <body>
+    {{ content }}
+  </body>
+</html>

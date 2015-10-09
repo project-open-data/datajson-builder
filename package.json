@@ -1,0 +1,33 @@
+{
+  "name": "datajson-builder",
+  "version": "0.0.1",
+  "author": "U.S. Government",
+  "description": "Jekyll template for generating a data.json file from YAML files.",
+  "contributors": [
+    {
+      "name": "Patrick Dufour"
+    }
+  ],
+  "scripts": {
+    "test": "jshint **.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/project-open-data/datajson-builder"
+  },
+  "license": "MIT",
+  "private": "false",
+  "devDependencies": {
+    "del": "*",
+    "path": "*",
+    "yargs": "*",
+    "request": "*",
+    "gulp": "^3.9.0",
+    "gulp-concat": "*",
+    "gulp-jshint": "*",
+    "gulp-minify": "*",
+    "gulp-uglify": "*",
+    "gulp-rename": "*",
+    "gulp-less": "*"
+  }
+}

@@ -1,0 +1,58 @@
+name: datajson-builder
+description: "Jekyll template for generating a data.json file from YAML files."
+logo: ""
+markdown: redcarpet
+timezone: America/New_York
+permalink: none
+#baseurl: 
+#url: http://localhost:8000
+#destination: /var/www
+baseurl: /datajson-builder
+url: http://project-open-data.github.io/datajson-builder
+destination: _site
+
+# Explicit excludes, including dotfiles to be safe
+exclude: [.DS_Store, .git, .gitignore, .vagrant, Gruntfile.js, Vagrantfile, package.json, node_modules, backups, _assets/img/src-images]
+
+# Markdown Configuration
+redcarpet:
+  extensions: [with_toc_data]
+
+# datajson-builder
+code: "https://github.com/project-open-data/datajson-builder"
+disclaimer: "This site is currently in alpha release.  This project is maintained by [Project Open Data](https://github.com/project-open-data/)."
+
+# Analytics
+ga:
+  enabled: false
+  code: "UA-XXXXXX-1"
+
+dap:
+  enabled: false
+  agency: ""
+  subagency: ""
+
+# Twitter
+twittercard:
+  enabled: false
+  site: ""
+
+# Open Graph
+opengraph:
+  enabled: true
+
+# Debugging & Testing
+debug:
+  polyfill: false
+  main: false
+  angular: false
+  bootstrap: false
+  jquery: false
+  leaflet: true
+
+# Dependencies Management
+deps:
+  angular:
+    version: "1.4.0-beta.4"
+  jquery:
+    version: "1.9.1"
